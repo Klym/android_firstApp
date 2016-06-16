@@ -44,13 +44,15 @@ public class UserAdapter extends SimpleAdapter {
         LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View rowView = inflater.inflate(this.resource, parent, false);
         TableRow row = (TableRow) rowView.findViewById(R.id.row);
-        TextView login = (TextView) row.findViewById(R.id.login);
-        TextView pass = (TextView) row.findViewById(R.id.pass);
+        TextView login = (TextView) rowView.findViewById(this.to[0]);
+        TextView pass = (TextView) rowView.findViewById(this.to[1]);
         Map<String, String> item = this.getItem(position);
-        login.setText(item.get("Login"));
-        pass.setText(item.get("Pass"));
-        //View currentView = (View)row.getParent();
-        //currentView.setBackgroundColor(Color.BLUE);
+        login.setText(item.get(this.from[0]));
+        pass.setText(item.get(this.from[1]));
+        View currentView = (View)row.getParent();
+        if (position % 2 == 0) {
+            currentView.setBackgroundColor(Color.argb(50, 180, 170, 170));
+        }
         return rowView;
     }
 }
