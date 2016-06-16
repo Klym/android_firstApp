@@ -31,7 +31,7 @@ public class GetValsActivity extends Activity {
             user.put("Pass", pass);
             values.add(user);
         }
-        SimpleAdapter adapter = new SimpleAdapter(this, values, android.R.layout.simple_list_item_2, new String[] {"Login", "Pass"}, new int[] {android.R.id.text1, android.R.id.text2});
+        SimpleAdapter adapter = new SimpleAdapter(this, values, R.layout.user_list_layout, new String[] {"Login", "Pass"}, new int[] {R.id.login, R.id.pass});
         listView.setAdapter(adapter);
     }
 }
