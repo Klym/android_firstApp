@@ -1,14 +1,20 @@
 package com.example.myfirstapplication;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.os.Bundle;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 
 public class GetValsActivity extends Activity {
@@ -22,7 +28,9 @@ public class GetValsActivity extends Activity {
         String login = getIntent().getStringExtra("Login");
         String pass = getIntent().getStringExtra("Pass");
         listView = (ListView) findViewById(R.id.listView);
-
+        //String url = "http://82.146.52.50/taskserver/index.php?login=" + login + "&pass=" + pass;
+        String url = "http://82.146.52.50/taskserver/index.php";
+        //String[] vals = response.split("\n");
         List<Map<String, String>> values = new ArrayList<Map<String, String>>();
         Map user;
         for (int i = 0; i < 10; i++) {
