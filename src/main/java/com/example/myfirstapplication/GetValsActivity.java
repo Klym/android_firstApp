@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DownloadManager;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -72,6 +73,8 @@ public class GetValsActivity extends Activity {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
+                                Intent intent = new Intent(GetValsActivity.this, MainActivity.class);
+                                startActivity(intent);
                             }
                         });
         AlertDialog alert = builder.create();
