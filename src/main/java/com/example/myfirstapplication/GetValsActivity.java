@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -25,7 +26,7 @@ import okhttp3.Response;
 public class GetValsActivity extends Activity {
 
     private ListView listView;
-    public static String response = "Loading...";
+    private String response;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,18 +36,20 @@ public class GetValsActivity extends Activity {
         String pass = getIntent().getStringExtra("Pass");
         listView = (ListView) findViewById(R.id.listView);
         String url = "http://82.146.52.50/taskserver/index.php?login=" + login + "&pass=" + pass;
-        new UserRequestTask().execute(url);
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                showResult();
-            }
-        }, 300);
+        UserRequestTask task = new UserRequestTask();
+        task.execute(url);
+        try {
+            this.response = task.get();
+            this.showResult();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 
     private void showResult() {
-        String[] vals = response.split("<br>");
+        String[] vals = this.response.split("<br>");
         if (vals.length != 2) {
             this.showErrorDialog();
             return;
@@ -66,7 +69,7 @@ public class GetValsActivity extends Activity {
     private void showErrorDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(GetValsActivity.this);
         builder.setTitle("Ошибка!")
-                .setMessage(response)
+                .setMessage(this.response)
                 .setIcon(R.mipmap.ic_launcher)
                 .setCancelable(false)
                 .setNegativeButton("Назад",

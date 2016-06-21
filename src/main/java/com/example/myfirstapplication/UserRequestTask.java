@@ -20,6 +20,5 @@ public class UserRequestTask extends AsyncTask<String, Void, String> {
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        GetValsActivity.response = s;
     }
 }
